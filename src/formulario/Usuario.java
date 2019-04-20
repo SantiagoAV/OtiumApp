@@ -57,15 +57,15 @@ public class Usuario
 		universidad = pUniversidad;
 		fechaNacimiento =pFechaNac;
 		contrasenia = pContra;
-		formulario = pForm;
-			
+		formulario = pForm;		
 	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public String getUsername() {
+	public String getUsername()
+	{
 		return username;
 	}
 
@@ -73,7 +73,8 @@ public class Usuario
 	 * 
 	 * @param username
 	 */
-	public void setUsername(String username) {
+	public void setUsername(String username) 
+	{
 		this.username = username;
 	}
 
@@ -81,7 +82,8 @@ public class Usuario
 	 * 
 	 * @return
 	 */
-	public String getNombres() {
+	public String getNombres() 
+	{
 		return nombres;
 	}
 
@@ -89,11 +91,13 @@ public class Usuario
 	 * 
 	 * @param nombres
 	 */
-	public void setNombres(String nombres) {
+	public void setNombres(String nombres) 
+	{
 		this.nombres = nombres;
 	}
 
-	public String getApellidos() {
+	public String getApellidos() 
+	{
 		return apellidos;
 	}
 
@@ -101,7 +105,8 @@ public class Usuario
 	 * 
 	 * @param apellidos
 	 */
-	public void setApellidos(String apellidos) {
+	public void setApellidos(String apellidos) 
+	{
 		this.apellidos = apellidos;
 	}
 
@@ -109,7 +114,8 @@ public class Usuario
 	 * 
 	 * @return
 	 */
-	public String getEmail() {
+	public String getEmail() 
+	{
 		return email;
 	}
 
@@ -117,7 +123,8 @@ public class Usuario
 	 * 
 	 * @param email
 	 */
-	public void setEmail(String email) {
+	public void setEmail(String email) 
+	{
 		this.email = email;
 	}
 
@@ -125,7 +132,8 @@ public class Usuario
 	 * 
 	 * @return
 	 */
-	public String getUniversidad() {
+	public String getUniversidad() 
+	{
 		return universidad;
 	}
 
@@ -133,7 +141,8 @@ public class Usuario
 	 * 
 	 * @param universidad
 	 */
-	public void setUniversidad(String universidad) {
+	public void setUniversidad(String universidad) 
+	{
 		this.universidad = universidad;
 	}
 
@@ -141,7 +150,8 @@ public class Usuario
 	 * 
 	 * @return
 	 */
-	public Date getFechaNacimiento() {
+	public Date getFechaNacimiento() 
+	{
 		return fechaNacimiento;
 	}
 
@@ -149,7 +159,8 @@ public class Usuario
 	 * 
 	 * @param fechaNacimiento
 	 */
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(Date fechaNacimiento) 
+	{
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
@@ -157,7 +168,8 @@ public class Usuario
 	 * 
 	 * @return
 	 */
-	public String getContrasenia() {
+	public String getContrasenia() 
+	{
 		return contrasenia;
 	}
 
@@ -165,7 +177,8 @@ public class Usuario
 	 * 
 	 * @param contrasenia
 	 */
-	public void setContrasenia(String contrasenia) {
+	public void setContrasenia(String contrasenia) 
+	{
 		this.contrasenia = contrasenia;
 	}
 	
@@ -174,7 +187,8 @@ public class Usuario
 	 * @return
 	 */
 
-	public Formulario getFormulario() {
+	public Formulario getFormulario() 
+	{
 		return formulario;
 	}
 
@@ -182,10 +196,8 @@ public class Usuario
 	 * 
 	 * @param formulario
 	 */
-	public void setFormulario(Formulario formulario) {
+	public void setFormulario(Formulario formulario) 
+	{
 		this.formulario = formulario;
 	}
-	
-	
-
 }
