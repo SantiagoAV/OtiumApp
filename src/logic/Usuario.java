@@ -1,4 +1,4 @@
-package formulario;
+package logic;
 
 import java.util.Date;
 

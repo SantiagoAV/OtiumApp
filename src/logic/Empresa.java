@@ -1,4 +1,4 @@
-package formulario;
+package logic;
 
 public class Empresa 
 {

@@ -1,4 +1,4 @@
-package formulario;
+package logic;
 
 import java.io.File;
 import java.io.FileReader;
@@ -324,7 +324,6 @@ public class OtiumApp
 		return buscada;
 	}
 
-
 	/**
 	 * Metodo que encuentra una habilidad con el nombre dado por parametro
 	 */
@@ -346,8 +345,6 @@ public class OtiumApp
 
 		return buscada;
 	}
-	
-
 
 	/**
 	 * 
@@ -359,6 +356,7 @@ public class OtiumApp
 		cargarOfertas();
 		System.out.println("funciono!!!");
 		System.out.println(allOfertas.size());
+		/*
 		for (Oferta act : allOfertas) {
 
 			System.out.println("titulo: "+ act.getTitulo());
@@ -379,7 +377,7 @@ public class OtiumApp
 
 				System.out.println("Habilidad: "+ habilidad.getNombre());
 			}
-		}
+		}*/
 			Formulario newForm = new Formulario("nada jeje");
 			currentUser = new Usuario("d", "a", "m", "n", "b", new Date(150), "y", newForm);
 			currentUser.getFormulario().getMaterias().add(darMateria("Matemática Estructural"));
