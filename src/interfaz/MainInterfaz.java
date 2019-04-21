@@ -53,12 +53,11 @@ public class MainInterfaz
     			JOptionPane.YES_NO_OPTION);
 		
 		otium = new OtiumApp();
+		
 		if(resp == JOptionPane.YES_OPTION)
 		{
-			
 			InterfazVisitante visitante = new InterfazVisitante(otium);
-			visitante.setVisible(true);
-			
+			visitante.setVisible(true);			
 		}
 		else if( resp == JOptionPane.NO_OPTION)
 		{

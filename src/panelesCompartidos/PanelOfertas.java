@@ -1,36 +1,38 @@
-package interfazUsuario;
+package panelesCompartidos;
 
-import javax.swing.JFrame;
+import java.util.ArrayList;
 
-import logic.OtiumApp;
-import panelesCompartidos.PanelOfertas;
+import javax.swing.*;
+import logic.Oferta;
 
-public class InterfazUsuario extends JFrame 
+public class PanelOfertas extends JScrollPane
 {
-	
 	// -----------------------------------------------------------------
     // Atributos
     // -----------------------------------------------------------------
-
-	private OtiumApp otium;
+		
 	
 	// -----------------------------------------------------------------
     // Atributos de la interfaz
     // -----------------------------------------------------------------
 	
-	private PanelOfertas ofertasGenerales;
+	
 	
 	// -----------------------------------------------------------------
     // Constructores
     // -----------------------------------------------------------------
 	
-	public InterfazUsuario(OtiumApp pOtium)
+	public PanelOfertas(ArrayList<Oferta> ofertas)
 	{
-		otium = pOtium;
-		System.out.println("Usuario");
-		System.exit(1);
+		// Inicializo los Panel Oferta a mostrar y los voy agregando.
+		for(Oferta of : ofertas)
+		{
+			PanelOferta nuevaOferta = new PanelOferta(of);
+			add(nuevaOferta);
+		}
+		
+		
 	}
-
 	
 	// -----------------------------------------------------------------
     // Métodos

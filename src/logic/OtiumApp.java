@@ -50,7 +50,11 @@ public class OtiumApp
 	 */
 	private static ArrayList<HabilidadBlanda> habilidades;
 
-
+	public OtiumApp()
+	{
+		estadoInicialPruebas();
+	}
+	
 	/**
 	 * 
 	 */
@@ -251,7 +255,7 @@ public class OtiumApp
 	 * El metodo calcula el porcentaje de materias y habilidades minimas 
 	 * para hacer "match" con una oferta laboral y  si se cumple el porcentaje, se agrega a la lista 
 	 */
-	public static ArrayList<Oferta> calcularMatch()
+	public ArrayList<Oferta> calcularMatch()
 	{
 		ArrayList<Oferta> matchOfertas = new ArrayList<Oferta>();
 		int numSeleccionadas = 0;
@@ -288,9 +292,9 @@ public class OtiumApp
 				}
 			}
 			int calculoAct = (numSeleccionadas*100)/totalOferta;
-			System.out.println("numero Selec: " + numSeleccionadas);
-			System.out.println("totalOfer: " + totalOferta);
-			System.out.println("Calculo act: " + calculoAct);
+//			System.out.println("numero Selec: " + numSeleccionadas);
+//			System.out.println("totalOfer: " + totalOferta);
+//			System.out.println("Calculo act: " + calculoAct);
 			if(calculoAct>= 50)
 			{
 
@@ -349,7 +353,8 @@ public class OtiumApp
 	/**
 	 * 
 	 */
-	public static void main(String[] args) {
+	public void estadoInicialPruebas() 
+	{
 
 		cargarHabilidades();
 		cargarMaterias();
@@ -378,7 +383,9 @@ public class OtiumApp
 				System.out.println("Habilidad: "+ habilidad.getNombre());
 			}
 		}*/
+		
 			Formulario newForm = new Formulario("nada jeje");
+			
 			currentUser = new Usuario("d", "a", "m", "n", "b", new Date(150), "y", newForm);
 			currentUser.getFormulario().getMaterias().add(darMateria("Matemática Estructural"));
 			currentUser.getFormulario().getMaterias().add(darMateria("Infraestructura Computacional"));
@@ -386,7 +393,7 @@ public class OtiumApp
 			currentUser.getFormulario().getHabilidades().add(darHabilidad("Escritura"));
 			currentUser.getFormulario().getHabilidades().add(darHabilidad("Trabajo en equipo"));
 			currentUser.getFormulario().getHabilidades().add(darHabilidad("Comunicación"));
-			ArrayList<Oferta> oferSuggest = calcularMatch();
+		/**	ArrayList<Oferta> oferSuggest = calcularMatch();
 			System.out.println("-----------------------------------SOY UN SEPARADOR-------------------------------------");
 			System.out.println(oferSuggest.size());
 			for (Oferta oferta : oferSuggest) {
@@ -399,7 +406,7 @@ public class OtiumApp
 				System.out.println("Requerimiento: "+ oferta.getRequerimiento());
 				System.out.println("# materias: " + oferta.getMaterias().size());
 				System.out.println("# habilidas: " + oferta.getHabilidades().size());
-			}
+			}*/
 		
 	}
 
