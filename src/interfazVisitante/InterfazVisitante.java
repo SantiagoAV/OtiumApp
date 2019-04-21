@@ -25,7 +25,7 @@ public class InterfazVisitante extends JFrame
 	
 	private NavBar navBar;
 	
-	
+	private PanelHomePage panelHomePage;
 	
 	// -----------------------------------------------------------------
     // Constructores
@@ -38,6 +38,7 @@ public class InterfazVisitante extends JFrame
 	public InterfazVisitante(OtiumApp pOtium)
 	{
 		logic = pOtium;
+		panelHomePage = new PanelHomePage();
 		System.out.println("visitante");
 		// Construye la forma
 		setSize(new Dimension(1000,1000));
@@ -48,6 +49,7 @@ public class InterfazVisitante extends JFrame
         
         navBar = new NavBar(this);
         add(navBar, BorderLayout.NORTH);
+        add(panelHomePage, BorderLayout.CENTER);
 //        PanelOfertaDetail ofDetailPrueba = new PanelOfertaDetail(logic.calcularMatch().get(0));
 //        add(ofDetailPrueba, BorderLayout.CENTER);
 	}

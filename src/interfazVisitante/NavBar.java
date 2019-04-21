@@ -28,6 +28,9 @@ public class NavBar extends JPanel implements ActionListener
     // Atributos de la interfaz
     // -----------------------------------------------------------------
 	
+	//TODO poner ruta de la nutria u.u
+	private final static JLabel imgNutria = new JLabel(new ImageIcon("./data/pageImgs/NOMBREIMG"));
+	
 	private JButton back;
 	
 	private JButton foward;
@@ -46,6 +49,8 @@ public class NavBar extends JPanel implements ActionListener
 		interfaz = pInterfaz;
 		setLayout(new GridLayout(1,8));
 		setSize(new Dimension(1000,100));
+		
+		add(imgNutria);
 		
 		back = new JButton(new ImageIcon("./data/pageImgs/back.JPG"));
 		back.setActionCommand(BACK);

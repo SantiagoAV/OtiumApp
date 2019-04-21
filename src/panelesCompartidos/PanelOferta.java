@@ -61,7 +61,6 @@ public class PanelOferta extends JPanel implements ActionListener
 		
 		setLayout(new GridLayout(2, 1));
 		add(aux);
-		aux = new JPanel(new GridLayout(1,2));
 		JPanel aux2 = new JPanel(new GridLayout(1,2));
 		aux2.add(new JLabel("Salario: "));
 		salario = new JLabel(of.getSalario()+"");

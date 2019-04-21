@@ -3,6 +3,8 @@ package panelesCompartidos;
 import java.util.ArrayList;
 
 import javax.swing.*;
+
+import interfazVisitante.InterfazVisitante;
 import logic.Oferta;
 
 public class PanelOfertas extends JScrollPane
@@ -22,12 +24,12 @@ public class PanelOfertas extends JScrollPane
     // Constructores
     // -----------------------------------------------------------------
 	
-	public PanelOfertas(ArrayList<Oferta> ofertas)
+	public PanelOfertas(ArrayList<Oferta> ofertas, InterfazVisitante pInterfaz )
 	{
 		// Inicializo los Panel Oferta a mostrar y los voy agregando.
 		for(Oferta of : ofertas)
 		{
-			PanelOferta nuevaOferta = new PanelOferta(of);
+			PanelOferta nuevaOferta = new PanelOferta(of, pInterfaz);
 			add(nuevaOferta);
 		}
 		
