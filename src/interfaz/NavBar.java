@@ -152,6 +152,7 @@ public class NavBar extends JPanel implements ActionListener
 	public void actualizar() {
 		iniciarSesion.setVisible(false);
 		registrar.setVisible(false);
+		allOfertas.setVisible(false);
 		estado = 1;
 	}
 }
