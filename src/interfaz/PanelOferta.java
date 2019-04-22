@@ -91,7 +91,7 @@ public class PanelOferta extends JPanel implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		if(e.getActionCommand().equals(DETAIL))
-			interfaz.mostrarDetail(oferta);		
+			interfaz.showDetail(oferta);		
 	}
 
 }

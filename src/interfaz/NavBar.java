@@ -23,6 +23,8 @@ public class NavBar extends JPanel implements ActionListener
 	
 	private final static String RESGISTRAR = "REGISTRAR";
 	
+	private final static String OFERTAS = "OFERTAS";
+	
 	// -----------------------------------------------------------------
     // Atributos
     // -----------------------------------------------------------------
@@ -43,7 +45,7 @@ public class NavBar extends JPanel implements ActionListener
 	
 	private JButton registrar;
 	
-	private JTextField proximamenteBarraBusqueda;
+	private JButton allOfertas;
 	
 	// -----------------------------------------------------------------
     // Constructores
@@ -83,14 +85,15 @@ public class NavBar extends JPanel implements ActionListener
 		foward.setSize(new Dimension(50, 50));
 		add(foward);
 
-		proximamenteBarraBusqueda = new JTextField("Próximamente barra de busqueda");
-		proximamenteBarraBusqueda.setEditable(false);
-		proximamenteBarraBusqueda.setSize(new Dimension(200,100));
-		proximamenteBarraBusqueda.setBackground(new Color(44, 40, 40));
-		proximamenteBarraBusqueda.setBorder(null);
-		proximamenteBarraBusqueda.setOpaque(true);
-		proximamenteBarraBusqueda.setForeground(Color.WHITE);
-		add(proximamenteBarraBusqueda);
+		allOfertas = new JButton( "Ofertas" );
+		allOfertas.setActionCommand(OFERTAS);
+		allOfertas.addActionListener(this);
+		allOfertas.setSize(new Dimension(200,100));
+		allOfertas.setBackground(new Color(44, 40, 40));
+		allOfertas.setBorder(null);
+		allOfertas.setOpaque(true);
+		allOfertas.setForeground(Color.WHITE);
+		add(allOfertas);
 		add(new JLabel());
 		
 		iniciarSesion = new JButton("Iniciar sesión");
@@ -126,11 +129,13 @@ public class NavBar extends JPanel implements ActionListener
 			else if(pEvent.getActionCommand().equals(FOWARD))
 				interfaz.nextPage();
 			else if(pEvent.getActionCommand().equals(HOME))
-				interfaz.home();
+				interfaz.showHome();
 			else if(pEvent.getActionCommand().equals(INICIAR_SESION))
-				interfaz.iniciarSesion();//TODO Cambio de panel por el de inicio de sesión
+				interfaz.showIniciarSesion();
 			else if(pEvent.getActionCommand().equals(RESGISTRAR))
-				interfaz.registrar();//TODO Cambio de panel por el de registro
+				interfaz.showRegistrar();
+			else if(pEvent.getActionCommand().equals(OFERTAS))
+				interfaz.showAllOfertas();
 		}
 		catch(Exception e)
 		{

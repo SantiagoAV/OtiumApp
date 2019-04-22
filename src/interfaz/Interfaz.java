@@ -132,84 +132,87 @@ public class Interfaz extends JFrame
 		}
 	}
 
-	/**
-	 * Método más importante y no se como hacerlo :D
-	 */
-	public void actualizar()
+	public void showHome() 
 	{
-
-
-
-		//Pensé que la navegación sería bueno tenerla como una página web, soooo
-		//Lo mejor sería poder devolvernos como en estados de la aplicación y así
-		//Como cuando uno de vuelve una página cuando se metió a lo que no era,
-		//no se si me hago entender. Bueno el caso, hay que hacer eso.
-		//Pero para eso es necesario actualizar TODO el JFrame, lo cual no tengo
-		//Idea de como hacer jejeje.
-		//Les dejo para que piensen.
-
-
-	}
-
-	public void home() 
-	{
-		remove(historial.remove(historial.size()-1));
+		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
+		historial.get(pagActual).setVisible(false);
 		historial.add(home);
 		pagActual++;
 
-		//TODO Repaint de la homepage, no recuerdo como hacerlo.
-		home = new PanelHomePage();
-		//Iniciar con la homepage y agregarla a la lista de historial.
-		historial.add(home);
 		add(home, BorderLayout.CENTER);
+		home.setVisible(true);
+		repaint();
+		revalidate();
 	}
 
 	public void nextPage() 
 	{
-
-		// TODO Hacer el next page.
+		if(pagActual < historial.size()-1)
+		{
+			
+		}
+		
+		repaint();
+		revalidate();
 	}
 
 	public void previousPage() 
 	{
-
-
-		//TODO Repaint, no recuerdo como hacerlo.
+		if(pagActual > 0)
+		{
+			pagActual--;
+			JPanel panel = historial.get(pagActual);
+			add(panel, BorderLayout.CENTER);
+		}
+		
+		repaint();
+		revalidate();
 	}
 
-	public void mostrarDetail(Oferta of) 
+	public void showAllOfertas() 
 	{
-		historial = (ArrayList<JPanel>) historial.subList(0, pagActual);
+		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
+		
+	}
+	
+	public void showDetail(Oferta of) 
+	{
+		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
+		historial.get(pagActual).setVisible(false);
 		PanelOfertaDetail detail = new PanelOfertaDetail(of);
 		historial.add(detail);
-		pagActual = historial.indexOf(detail);
-		//TODO Repaint, no recuerdo como hacerlo.
+		pagActual ++;
+		
+		revalidate();
+		repaint();		
 	}
 
-	public void registrar() {
-
-		remove(historial.remove(historial.size()-1));
-
+	public void showRegistrar()
+	{
+		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
+		historial.get(pagActual).setVisible(false);
 		registro = new PanelRegistro(this);
-		//Iniciar con la homepage y agregarla a la lista de historial.
 		historial.add(registro);
+		pagActual ++;
 		add(registro, BorderLayout.CENTER);
-
-
-		repaint();		
+		registro.setVisible(true);
+		
+		repaint();
+		revalidate();
 	}
 
-	public void iniciarSesion() {
-
-		remove(historial.remove(historial.size()-1));
-
+	public void showIniciarSesion() 
+	{
+		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
+		historial.get(pagActual).setVisible(false);
 		iniciarSesion = new PanelIniciarSesion(this);
-		//Iniciar con la homepage y agregarla a la lista de historial.
 		historial.add(iniciarSesion);
+		pagActual ++;
 		add(iniciarSesion, BorderLayout.CENTER);
-
-
-		repaint();		
+		iniciarSesion.setVisible(true);
+		
+		repaint();
+		revalidate();
 	}
 
 	public void inicioSesion(String username, String contrasenia) {
@@ -226,6 +229,7 @@ public class Interfaz extends JFrame
 			add(ofertasGenerales, BorderLayout.CENTER);
 
 			repaint();
+			revalidate();
 		}
 		else
 		{
@@ -245,6 +249,7 @@ public class Interfaz extends JFrame
 		add(ofertasGenerales, BorderLayout.CENTER);
 
 		repaint();
+		revalidate();
 	}
 
 	// -----------------------------------------------------------------
