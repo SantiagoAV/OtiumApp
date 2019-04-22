@@ -267,6 +267,15 @@ public class Interfaz extends JFrame
 		repaint();
 		revalidate();
 	}
+	
+	public void showOfertasUsuario()
+	{
+		inicializarPanelOfertasUsuario(); 
+		ofertasGenerales = new JScrollPane(panelOfertasMatch, 
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		add(ofertasGenerales, BorderLayout.CENTER);
+	}
 
 	public void inicioSesion(String username, String contrasenia) {
 		boolean inicio = logic.iniciarSesion(username, contrasenia);
@@ -275,11 +284,7 @@ public class Interfaz extends JFrame
 		{
 			remove(iniciarSesion);
 
-			inicializarPanelOfertasUsuario(); 
-			ofertasGenerales = new JScrollPane(panelOfertasMatch, 
-					ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  
-					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			add(ofertasGenerales, BorderLayout.CENTER);
+			showOfertasUsuario();
 
 			repaint();
 			revalidate();
@@ -294,13 +299,10 @@ public class Interfaz extends JFrame
 		logic.crearUsuario(pNombre, pApellido, pEmail, pUserName, pUniversidad, pFechaNac, pContra, pComentario, materias, habilidades);
 
 		remove(registro);
-
-		inicializarPanelOfertasUsuario(); 
-		ofertasGenerales = new JScrollPane(panelOfertasMatch, 
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		add(ofertasGenerales, BorderLayout.CENTER);
-
+		
+		showOfertasUsuario();
+		
+		navBar.actualizar();
 		repaint();
 		revalidate();
 	}

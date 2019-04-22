@@ -385,7 +385,6 @@ public class PanelRegistro extends JPanel implements ActionListener{
 			{
 				materiasSeleccionadas.add(new Materia(materia));
 				materias[i][j].setBackground(new Color(59, 44, 133));
-				System.out.println(materia);
 			}
 
 			else if(materias[i][j].getBackground().equals(new Color(59, 44, 133)))
@@ -407,7 +406,6 @@ public class PanelRegistro extends JPanel implements ActionListener{
 			{
 				habilidadesSeleccionadas.add(new HabilidadBlanda(habilidad));
 				habilidades[i][j].setBackground(new Color(59, 44, 133));
-				System.out.println(habilidad);
 			}
 
 			else if(habilidades[i][j].getBackground().equals(new Color(59, 44, 133)))

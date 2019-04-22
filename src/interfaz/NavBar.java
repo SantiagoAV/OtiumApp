@@ -47,12 +47,15 @@ public class NavBar extends JPanel implements ActionListener
 	
 	private JButton allOfertas;
 	
+	private int estado; // 0 para antes de iniciar sesión | 1 para cuando inicia sesión
+	
 	// -----------------------------------------------------------------
     // Constructores
     // -----------------------------------------------------------------
 
 	public NavBar(Interfaz pInterfaz) 
 	{
+		estado = 0;
 		interfaz = pInterfaz;
 		setLayout(new GridLayout(1,7));
 		setSize(new Dimension(1000,100));
@@ -134,7 +137,9 @@ public class NavBar extends JPanel implements ActionListener
 				interfaz.showIniciarSesion();
 			else if(pEvent.getActionCommand().equals(RESGISTRAR))
 				interfaz.showRegistrar();
-			else if(pEvent.getActionCommand().equals(OFERTAS))
+			else if(pEvent.getActionCommand().equals(OFERTAS) && estado == 0)
+				interfaz.showAllOfertas();
+			else if(pEvent.getActionCommand().equals(OFERTAS) && estado == 1)
 				interfaz.showAllOfertas();
 		}
 		catch(Exception e)
@@ -142,5 +147,11 @@ public class NavBar extends JPanel implements ActionListener
 			JOptionPane.showMessageDialog(this, e.getMessage(), "¡Vaya!", JOptionPane.INFORMATION_MESSAGE);
 		}
 		
+	}
+	
+	public void actualizar() {
+		iniciarSesion.setVisible(false);
+		registrar.setVisible(false);
+		estado = 1;
 	}
 }
