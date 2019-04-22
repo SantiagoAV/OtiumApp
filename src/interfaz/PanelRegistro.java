@@ -1,4 +1,4 @@
-package interfazUsuario;
+package interfaz;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -49,7 +49,7 @@ public class PanelRegistro extends JPanel implements ActionListener{
 	
 	private JButton registrar;
 
-	public PanelRegistro (InterfazUsuario pInterfaz){
+	public PanelRegistro (Interfaz pInterfaz){
 
 		setLayout(new GridBagLayout());
 		setVisible(true);
