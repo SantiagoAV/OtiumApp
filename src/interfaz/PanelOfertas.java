@@ -1,4 +1,4 @@
-package panelesCompartidos;
+package interfaz;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class PanelOfertas extends JScrollPane
     // Constructores
     // -----------------------------------------------------------------
 	
-	public PanelOfertas(ArrayList<Oferta> ofertas, InterfazVisitante pInterfaz )
+	public PanelOfertas(ArrayList<Oferta> ofertas, JFrame pInterfaz )
 	{
 		// Inicializo los Panel Oferta a mostrar y los voy agregando.
 		for(Oferta of : ofertas)

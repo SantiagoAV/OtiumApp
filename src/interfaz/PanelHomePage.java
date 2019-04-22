@@ -1,4 +1,4 @@
-package panelesCompartidos;
+package interfaz;
 
 import javax.swing.*;
 

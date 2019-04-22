@@ -1,4 +1,4 @@
-package panelesCompartidos;
+package interfaz;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,7 +21,7 @@ public class PanelOferta extends JPanel implements ActionListener
     // Atributos
     // -----------------------------------------------------------------
 		
-	private InterfazVisitante interfaz;
+	//private InterfazVisitante interfaz;
 	
 	private Oferta oferta;
 	
@@ -30,13 +30,6 @@ public class PanelOferta extends JPanel implements ActionListener
     // -----------------------------------------------------------------
 
 	private final static JLabel imgMaletin = new JLabel(new ImageIcon("./data/pageImgs/portafolio.png"));
-	
-	//TODO poner ruta del like
-	private final static JLabel imgLike = new JLabel(new ImageIcon("./data/pageImgs/NOMBREIMG"));
-	
-	//TODO poner ruta del dislike
-	private final static JLabel imgDislike = new JLabel(new ImageIcon("./data/pageImgs/NOMBREIMG"));
-	
 	private JLabel titulo;
 	
 	private JLabel salario;
@@ -47,16 +40,13 @@ public class PanelOferta extends JPanel implements ActionListener
     // Constructores
     // -----------------------------------------------------------------
 	
-	public PanelOferta ( Oferta of, InterfazVisitante pInterfaz)
+	public PanelOferta ( Oferta of, JFrame pInterfaz)
 	{
-		interfaz = pInterfaz;
 		oferta = of;
 		titulo = new JLabel(of.getTitulo());
 		JPanel aux = new JPanel(new GridLayout(1,4));
 		aux.add(imgMaletin);
 		aux.add(titulo);
-		aux.add(imgLike);
-		aux.add(imgDislike);
 		
 		setLayout(new GridLayout(2, 1));
 		add(aux);
@@ -79,8 +69,8 @@ public class PanelOferta extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		if(e.getActionCommand().equals(DETAIL))
-			interfaz.mostrarDetail(oferta);		
+		//if(e.getActionCommand().equals(DETAIL))
+			//interfaz.mostrarDetail(oferta);		
 	}
 	
 }

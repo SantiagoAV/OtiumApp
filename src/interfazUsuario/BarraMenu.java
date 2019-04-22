@@ -8,7 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import interfaz.MainInterfaz;
+import interfaz.Interfaz;
 
 /**
  * Esta es la clase donde está definido el menú de la aplicación

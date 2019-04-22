@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-=======
-/.classpath
-/.project
-/interfaz/
->>>>>>> 6689e27d36438d3f7ce356a719eed5342a147ec3
-/interfazUsuario/
 /interfazVisitante/
+/interfazUsuario/
+/panelesCompartidos/
+/interfaz/
