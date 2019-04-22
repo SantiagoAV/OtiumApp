@@ -196,17 +196,11 @@ public class OtiumApp
 		Formulario formulario = new Formulario(pComentario);
 		formulario.setHabilidades(habilidades);
 		formulario.setMaterias(materias);
-		currentUser = new Usuario(pUserName, pNombre, pApellido, pEmail, pUniversidad, pFechaNac, pContra, formulario);
-		usuarios.add(currentUser);
-	}
-	/**
-	 * Agrega un usuario a la lista de usuarios.
-	 * Cada vez que se agrega un usuario se debe crear el archivo de nuevo
-	 */
-	public  void persistirUsuario(Usuario user)
-	{
-		usuarios.add(user);
-		
+		for (Materia materia : materias) {
+			System.err.println("nombre mat: " + materia.getNombre());
+		}
+		Usuario nuevo = new Usuario(pUserName, pNombre, pApellido, pEmail, pUniversidad, pFechaNac, pContra, formulario);
+		usuarios.add(nuevo);
 		crearArchivoUsers();
 	}
 
@@ -247,7 +241,7 @@ public class OtiumApp
 		//Por cada usuario un objeto JSON
 		for (Usuario usuario : usuarios) 
 		{
-			
+			System.out.println(usuarios.size());
 			JSONObject userDetails = new JSONObject();
 			
 			userDetails.put("Username", usuario.getUsername());
@@ -282,7 +276,7 @@ public class OtiumApp
 			formDetails.put("Materias", userMat);
 			formDetails.put("Habilidades", userHab);
 			userDetails.put("Formulario", formDetails);
-			
+				System.out.println("entro?");
 			userList.add(userDetails);
 		}
 		//Escribe el archivo con la lista de objetos
@@ -290,6 +284,7 @@ public class OtiumApp
         	 
             file.write(userList.toJSONString());
             file.flush();
+            System.out.println("guardo?");
  
         } catch (IOException e) {
             e.printStackTrace();
@@ -503,22 +498,17 @@ public class OtiumApp
 
 		ArrayList<HabilidadBlanda> habilidadesUser = getUsuario(username).getFormulario().getHabilidades();
 		ArrayList<Materia> materiasUser = getUsuario(username).getFormulario().getMaterias();
+		for (Materia materia : materiasUser) {
+			System.out.println("nombre materia: " + materia.getNombre());
+		}
+		System.out.println("materias user: " + materiasUser.size() );
 
 		for (Oferta oferta : allOfertas) {
 			totalOferta = oferta.getMaterias().size() + oferta.getHabilidades().size();
 			numSeleccionadas =0;
-			
 			for (Materia materia : materiasUser) {
 				
 				for (Materia materiaOfer : oferta.getMaterias()) {
-					System.out.println(materia.getNombre());
-					System.out.println(oferta.getMaterias().size());
-					System.out.println(oferta.getTitulo());
-					if(materiaOfer == null)
-					{
-						System.out.println("loopp");
-					}
-					System.out.println(materiaOfer.getNombre());
 					if(materia.getNombre().equals(materiaOfer.getNombre()))
 					{
 						numSeleccionadas++;
@@ -547,7 +537,7 @@ public class OtiumApp
 				matchOfertas.add(oferta);
 			}
 		}
-		
+		System.out.println("tamanho carajo: " + matchOfertas.size());
 		return matchOfertas;
 
 	}
@@ -607,30 +597,39 @@ public class OtiumApp
 		cargarOfertas();
 		cargarUsuarios();
 		System.out.println("no user: " + usuarios.size());
-//		System.out.println("funciono!!!");
-	System.out.println(allOfertas.size());
-		
-		for (Oferta act : allOfertas) {
-
-			System.out.println("titulo: "+ act.getTitulo());
-			System.out.println("salario: "+ act.getSalario());
-			System.out.println("descripcion: "+ act.getDescripcion());
-			System.out.println("Ubicacion: " + act.getUbicacion());
-			System.out.println("Empresa: "+ act.getEmpresa().getNombre());
-			System.out.println("Jornada: " + act.getJornada());
-			System.out.println("Requerimiento: "+ act.getRequerimiento());
-			System.out.println("# materias: " + act.getMaterias().size());
-			System.out.println("# habilidas: " + act.getHabilidades().size());
-			for (Materia materia : act.getMaterias()) {
-
-				System.out.println("Materia: "+ materia.getNombre());
-			}
-
-			for (HabilidadBlanda habilidad : act.getHabilidades()) {
-
-				System.out.println("Habilidad: "+ habilidad.getNombre());
-			}
+		for (Usuario user : usuarios) {
+			
+			System.out.println("nombre: " + user.getNombres() );
+			System.out.println("apellido: " + user.getApellidos() );
+			System.out.println("email: " + user.getEmail());
+			System.out.println("nuser: " + user.getUsername() );
+			System.out.println("fechaNac: " + user.getFechaNacimiento());
+			
 		}
+////		System.out.println("funciono!!!");
+//	System.out.println(allOfertas.size());
+//		
+//		for (Oferta act : allOfertas) {
+//
+//			System.out.println("titulo: "+ act.getTitulo());
+//			System.out.println("salario: "+ act.getSalario());
+//			System.out.println("descripcion: "+ act.getDescripcion());
+//			System.out.println("Ubicacion: " + act.getUbicacion());
+//			System.out.println("Empresa: "+ act.getEmpresa().getNombre());
+//			System.out.println("Jornada: " + act.getJornada());
+//			System.out.println("Requerimiento: "+ act.getRequerimiento());
+//			System.out.println("# materias: " + act.getMaterias().size());
+//			System.out.println("# habilidas: " + act.getHabilidades().size());
+//			for (Materia materia : act.getMaterias()) {
+//
+//				System.out.println("Materia: "+ materia.getNombre());
+//			}
+//
+//			for (HabilidadBlanda habilidad : act.getHabilidades()) {
+//
+//				System.out.println("Habilidad: "+ habilidad.getNombre());
+//			}
+//		}
 		
 //			Formulario newForm = new Formulario("nada jeje");
 //			
