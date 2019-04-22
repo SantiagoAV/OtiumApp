@@ -196,18 +196,12 @@ public class OtiumApp
 		Formulario formulario = new Formulario(pComentario);
 		formulario.setHabilidades(habilidades);
 		formulario.setMaterias(materias);
-		currentUser = new Usuario(pUserName, pNombre, pApellido, pEmail, pUniversidad, pFechaNac, pContra, formulario);
-	}
-	/**
-	 * Agrega un usuario a la lista de usuarios.
-	 * Cada vez que se agrega un usuario se debe crear el archivo de nuevo
-	 */
-	public  void persistirUsuario(Usuario user)
-	{
-		usuarios.add(user);
+		Usuario nuevo = new Usuario(pUserName, pNombre, pApellido, pEmail, pUniversidad, pFechaNac, pContra, formulario);
+		usuarios.add(nuevo);
 		
 		crearArchivoUsers();
 	}
+
 	
 	
 	/**
