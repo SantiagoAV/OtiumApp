@@ -26,13 +26,15 @@ public class Interfaz extends JFrame
 	private int pagActual;
 
 	private boolean agregado;
-	
+
 	// -----------------------------------------------------------------
 	// Atributos de la interfaz
 	// -----------------------------------------------------------------
 
 	private JScrollPane ofertasGenerales;
 
+	private JScrollPane ofertasUsuario;
+	
 	private JPanel panelOfertasGenerales;
 
 	private JPanel panelOfertasMatch;
@@ -95,10 +97,10 @@ public class Interfaz extends JFrame
 
 		inicializarPanelOfertasGenerales(); 
 		ofertasGenerales = new JScrollPane(panelOfertasGenerales, 
-		        			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  
-		        			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		agregado = false;
-		        
+
 	}
 	// -----------------------------------------------------------------
 	// Métodos
@@ -139,6 +141,8 @@ public class Interfaz extends JFrame
 		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
 		if(historial.get(pagActual).equals(panelOfertasGenerales))
 			ofertasGenerales.setVisible(false);
+		else if(historial.get(pagActual).equals(panelOfertasMatch))
+			ofertasUsuario.setVisible(false);
 		else
 			historial.get(pagActual).setVisible(false);
 		historial.add(home);
@@ -156,38 +160,46 @@ public class Interfaz extends JFrame
 		{
 			if(historial.get(pagActual).equals(panelOfertasGenerales))
 				ofertasGenerales.setVisible(false);
+			else if(historial.get(pagActual).equals(panelOfertasMatch))
+				ofertasUsuario.setVisible(false);
 			else
 				historial.get(pagActual).setVisible(false);
-			
+
 			pagActual ++;
-			
+
 			if(historial.get(pagActual).equals(panelOfertasGenerales))
 				ofertasGenerales.setVisible(true);
+			else if(historial.get(pagActual).equals(panelOfertasMatch))
+				ofertasUsuario.setVisible(true);
 			else
 				historial.get(pagActual).setVisible(true);
 		}
-		
+
 		repaint();
 		revalidate();
 	}
 
- 	public void previousPage() 
+	public void previousPage() 
 	{
 		if(pagActual > 0)
 		{
 			if(historial.get(pagActual).equals(panelOfertasGenerales))
 				ofertasGenerales.setVisible(false);
+			else if(historial.get(pagActual).equals(panelOfertasMatch))
+				ofertasUsuario.setVisible(false);
 			else
 				historial.get(pagActual).setVisible(false);
-			
+
 			pagActual--;
-			
+
 			if(historial.get(pagActual).equals(panelOfertasGenerales))
 				ofertasGenerales.setVisible(true);
+			else if(historial.get(pagActual).equals(panelOfertasMatch))
+				ofertasUsuario.setVisible(true);
 			else
 				historial.get(pagActual).setVisible(true);
 		}
-		
+
 		repaint();
 		revalidate();
 	}
@@ -195,37 +207,42 @@ public class Interfaz extends JFrame
 	public void showAllOfertas() 
 	{
 		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
-		historial.get(pagActual).setVisible(false);
-		historial.add(panelOfertasGenerales);
-		pagActual++;
-		
-		if(!agregado)
+		if(!historial.get(pagActual).equals(panelOfertasGenerales))
 		{
-			add(ofertasGenerales, BorderLayout.CENTER);
-			agregado =true;
+			historial.get(pagActual).setVisible(false);
+			historial.add(panelOfertasGenerales);
+			pagActual++;
+
+			if(!agregado)
+			{
+				add(ofertasGenerales, BorderLayout.CENTER);
+				agregado =true;
+			}
+
+
+			ofertasGenerales.setVisible(true);
+			repaint();
+			revalidate();	
 		}
-		
-		
-		ofertasGenerales.setVisible(true);
-		repaint();
-		revalidate();	
 	}
-	
+
 	public void showDetail(Oferta of) 
 	{
 		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
-		
+
 		if(historial.get(pagActual).equals(panelOfertasGenerales))
 			ofertasGenerales.setVisible(false);
+		else if(historial.get(pagActual).equals(panelOfertasMatch))
+			ofertasUsuario.setVisible(false);
 		else
 			historial.get(pagActual).setVisible(false);
-		
+
 		PanelOfertaDetail detail = new PanelOfertaDetail(of);
 		historial.add(detail);		
 		pagActual ++;
 		detail.setVisible(true);
 		add(detail, BorderLayout.CENTER);
-		
+
 		revalidate();
 		repaint();		
 	}
@@ -236,6 +253,8 @@ public class Interfaz extends JFrame
 
 		if(historial.get(pagActual).equals(panelOfertasGenerales))
 			ofertasGenerales.setVisible(false);
+		else if(historial.get(pagActual).equals(panelOfertasMatch))
+			ofertasUsuario.setVisible(false);
 		else
 			historial.get(pagActual).setVisible(false);
 
@@ -244,7 +263,7 @@ public class Interfaz extends JFrame
 		pagActual ++;
 		add(registro, BorderLayout.CENTER);
 		registro.setVisible(true);
-		
+
 		repaint();
 		revalidate();
 	}
@@ -255,26 +274,43 @@ public class Interfaz extends JFrame
 
 		if(historial.get(pagActual).equals(panelOfertasGenerales))
 			ofertasGenerales.setVisible(false);
+		else if(historial.get(pagActual).equals(panelOfertasMatch))
+			ofertasUsuario.setVisible(false);
 		else
 			historial.get(pagActual).setVisible(false);
-		
+
 		iniciarSesion = new PanelIniciarSesion(this);
 		historial.add(iniciarSesion);
 		pagActual ++;
 		add(iniciarSesion, BorderLayout.CENTER);
 		iniciarSesion.setVisible(true);
-		
+
 		repaint();
 		revalidate();
 	}
-	
+
 	public void showOfertasUsuario(String pUserName)
 	{
-		inicializarPanelOfertasUsuario(pUserName); 
-		ofertasGenerales = new JScrollPane(panelOfertasMatch, 
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		add(ofertasGenerales, BorderLayout.CENTER);
+		if(ofertasUsuario == null)
+		{
+			inicializarPanelOfertasUsuario(pUserName);
+			ofertasUsuario = new JScrollPane(panelOfertasMatch, 
+					ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  
+					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			add(ofertasUsuario, BorderLayout.CENTER);
+			ofertasUsuario.setVisible(true);
+		}
+		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
+		if(!historial.get(pagActual).equals(panelOfertasGenerales))
+		{
+			historial.get(pagActual).setVisible(false);
+			historial.add(panelOfertasMatch);
+			pagActual++;
+			
+			ofertasUsuario.setVisible(true);
+		}
+		repaint();
+		revalidate();
 	}
 
 	public void inicioSesion(String username, String contrasenia) {
