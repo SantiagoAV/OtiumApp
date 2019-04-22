@@ -200,6 +200,31 @@ public class OtiumApp
 		crearArchivoUsers();
 	}
 	
+	
+	/**
+	 * Metodo para verificar los datos de inicio de sesion de un usuario
+	 * Retorna true si la info es valida; False si no es valida
+	 */
+	public boolean iniciarSesion(String pUsuario, String pContrasenia)
+	{
+		boolean esValida = false;
+		
+		
+		Usuario current = null;
+		for (int i = 0; i < usuarios.size(); i++) {
+			
+			current = usuarios.get(i);
+			if(current.getUsername().equals(pUsuario) && current.getContrasenia().equals(pContrasenia))
+			{
+				esValida = true;
+			}
+			
+			
+		}
+		
+		return esValida;
+	}
+	
 	/**
 	 * Crea el archivo json con todos los usuarios
 	 */
