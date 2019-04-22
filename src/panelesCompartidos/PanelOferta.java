@@ -28,9 +28,8 @@ public class PanelOferta extends JPanel implements ActionListener
 	// -----------------------------------------------------------------
     // Atributos de la interfaz
     // -----------------------------------------------------------------
-	
-	//TODO poner ruta del maletin
-	private final static JLabel imgMaletin = new JLabel(new ImageIcon("./data/pageImgs/NOMBREIMG"));
+
+	private final static JLabel imgMaletin = new JLabel(new ImageIcon("./data/pageImgs/portafolio.png"));
 	
 	//TODO poner ruta del like
 	private final static JLabel imgLike = new JLabel(new ImageIcon("./data/pageImgs/NOMBREIMG"));

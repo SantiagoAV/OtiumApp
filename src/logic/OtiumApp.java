@@ -69,6 +69,11 @@ public class OtiumApp
 		estadoInicialPruebas();
 	}
 	
+	public ArrayList<Oferta> darOfertas()
+	{
+		return allOfertas;
+	}
+	
 	/**
 	 * 
 	 */
@@ -537,9 +542,9 @@ public class OtiumApp
 	public void estadoInicialPruebas() 
 	{
 
-//		cargarHabilidades();
-//		cargarMaterias();
-//		cargarOfertas();
+		cargarHabilidades();
+		cargarMaterias();
+		cargarOfertas();
 //		System.out.println("funciono!!!");
 //		System.out.println(allOfertas.size());
 		/*
