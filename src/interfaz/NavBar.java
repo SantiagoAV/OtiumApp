@@ -128,9 +128,9 @@ public class NavBar extends JPanel implements ActionListener
 			else if(pEvent.getActionCommand().equals(HOME))
 				interfaz.home();
 			else if(pEvent.getActionCommand().equals(INICIAR_SESION))
-				interfaz.actualizar();//TODO Cambio de panel por el de inicio de sesión
+				interfaz.iniciarSesion();//TODO Cambio de panel por el de inicio de sesión
 			else if(pEvent.getActionCommand().equals(RESGISTRAR))
-				interfaz.actualizar();//TODO Cambio de panel por el de registro
+				interfaz.registrar();//TODO Cambio de panel por el de registro
 		}
 		catch(Exception e)
 		{

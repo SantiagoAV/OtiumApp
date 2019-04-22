@@ -1,5 +1,6 @@
 package interfaz;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -8,15 +9,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EtchedBorder;
 
 import com.toedter.calendar.JDateChooser;
+
+import logic.HabilidadBlanda;
+import logic.Materia;
 
 @SuppressWarnings("serial")
 public class PanelRegistro extends JPanel implements ActionListener{
@@ -38,22 +46,36 @@ public class PanelRegistro extends JPanel implements ActionListener{
 	private JTextArea comentario;
 
 	private JButton[][] materias;
-	
+
 	private JButton[][] habilidades;
-	
-	private ArrayList<String> materiasSeleccionadas;
-	
-	private ArrayList<String> habilidadesSeleccionadas;
-	
-	private JButton siguiente;
-	
+
+	private ArrayList<Materia> materiasSeleccionadas;
+
+	private ArrayList<HabilidadBlanda> habilidadesSeleccionadas;
+
 	private JButton registrar;
+	
+	private Interfaz interfaz;
 
 	public PanelRegistro (Interfaz pInterfaz){
 
-		setLayout(new GridBagLayout());
+		setLayout(new BorderLayout());
 		setVisible(true);
+		setBackground(Color.WHITE);
+		
+		interfaz = pInterfaz;
+		materiasSeleccionadas = new ArrayList<>();
+		habilidadesSeleccionadas = new ArrayList<>();
 
+		JPanel panel = new JPanel();
+		JScrollPane scroll = new JScrollPane(panel, 
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		add(scroll, BorderLayout.CENTER);
+
+		panel.setLayout(new GridBagLayout());
+		panel.setBackground(Color.WHITE);
+		panel.setPreferredSize(new Dimension(1200, 1000));
 		GridBagConstraints constrains = new GridBagConstraints();
 
 		JLabel nombre = new JLabel("Nombre:");
@@ -62,7 +84,7 @@ public class PanelRegistro extends JPanel implements ActionListener{
 		constrains.gridwidth = 1;
 		constrains.gridheight = 1;
 		constrains.anchor = GridBagConstraints.WEST;
-		add(nombre, constrains);
+		panel.add(nombre, constrains);
 
 		nombres = new JTextField();
 		nombres.setPreferredSize(new Dimension(200, 20));
@@ -70,14 +92,14 @@ public class PanelRegistro extends JPanel implements ActionListener{
 		constrains.gridy = 0;
 		constrains.gridwidth = 2;
 		constrains.gridheight = 1;
-		add(nombres, constrains);
+		panel.add(nombres, constrains);
 
 		JLabel apellido = new JLabel("Apellidos:");
 		constrains.gridx = 0;
 		constrains.gridy = 1;
 		constrains.gridwidth = 1;
 		constrains.gridheight = 1;
-		add(apellido, constrains);
+		panel.add(apellido, constrains);
 
 		apellidos = new JTextField();
 		apellidos.setPreferredSize(new Dimension(200, 20));
@@ -85,14 +107,14 @@ public class PanelRegistro extends JPanel implements ActionListener{
 		constrains.gridy = 1;
 		constrains.gridwidth = 2;
 		constrains.gridheight = 1;
-		add(apellidos, constrains);
+		panel.add(apellidos, constrains);
 
 		JLabel correo = new JLabel("Correo electrónico:");
 		constrains.gridx = 0;
 		constrains.gridy = 2;
 		constrains.gridwidth = 1;
 		constrains.gridheight = 1;
-		add(correo, constrains);
+		panel.add(correo, constrains);
 
 		email = new JTextField();
 		email.setPreferredSize(new Dimension(200, 20));
@@ -100,14 +122,14 @@ public class PanelRegistro extends JPanel implements ActionListener{
 		constrains.gridy = 2;
 		constrains.gridwidth = 2;
 		constrains.gridheight = 1;
-		add(email, constrains);
+		panel.add(email, constrains);
 
 		JLabel user = new JLabel("Nombre de usuario:");
 		constrains.gridx = 0;
 		constrains.gridy = 3;
 		constrains.gridwidth = 1;
 		constrains.gridheight = 1;
-		add(user, constrains);
+		panel.add(user, constrains);
 
 		username = new JTextField();
 		username.setPreferredSize(new Dimension(200, 20));
@@ -115,28 +137,28 @@ public class PanelRegistro extends JPanel implements ActionListener{
 		constrains.gridy = 3;
 		constrains.gridwidth = 2;
 		constrains.gridheight = 1;
-		add(username, constrains);
+		panel.add(username, constrains);
 
 		JLabel contra = new JLabel("Contraseña:");
 		constrains.gridx = 0;
 		constrains.gridy = 4;
 		constrains.gridwidth = 1;
 		constrains.gridheight = 1;
-		add(contra, constrains);
+		panel.add(contra, constrains);
 
 		contrasenia = new JPasswordField(15);
 		constrains.gridx = 1;
 		constrains.gridy = 4;
 		constrains.gridwidth = 2;
 		constrains.gridheight = 1;
-		add(contrasenia, constrains);
+		panel.add(contrasenia, constrains);
 
 		JLabel fecha = new JLabel("Fecha de nacimiento:");
 		constrains.gridx = 0;
 		constrains.gridy = 5;
 		constrains.gridwidth = 1;
 		constrains.gridheight = 1;
-		add(fecha, constrains);
+		panel.add(fecha, constrains);
 
 		fechaNacimiento = new JDateChooser();
 		fechaNacimiento.setPreferredSize(new Dimension(200, 20));
@@ -144,14 +166,14 @@ public class PanelRegistro extends JPanel implements ActionListener{
 		constrains.gridy = 5;
 		constrains.gridwidth = 2;
 		constrains.gridheight = 1;
-		add(fechaNacimiento, constrains);
+		panel.add(fechaNacimiento, constrains);
 
 		JLabel uni = new JLabel("Universidad:");
 		constrains.gridx = 0;
 		constrains.gridy = 6;
 		constrains.gridwidth = 1;
 		constrains.gridheight = 1;
-		add(uni, constrains);
+		panel.add(uni, constrains);
 
 		universidad = new JTextField("Universidad de los Andes");
 		universidad.setPreferredSize(new Dimension(200, 20));
@@ -160,7 +182,7 @@ public class PanelRegistro extends JPanel implements ActionListener{
 		constrains.gridy = 6;
 		constrains.gridwidth = 2;
 		constrains.gridheight = 1;
-		add(universidad, constrains);
+		panel.add(universidad, constrains);
 
 		JLabel coment = new JLabel("Comentario:");
 		constrains.gridx = 0;
@@ -168,66 +190,24 @@ public class PanelRegistro extends JPanel implements ActionListener{
 		constrains.gridwidth = 1;
 		constrains.gridheight = 1;
 		constrains.anchor = GridBagConstraints.NORTHWEST;
-		add(coment, constrains);
+		panel.add(coment, constrains);
 
 		comentario = new JTextArea("Ej: Me gusta el chocolate");
-		comentario.setPreferredSize(new Dimension(800, 200));
+		comentario.setPreferredSize(new Dimension(700, 100));
+		comentario.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		constrains.gridx = 1;
 		constrains.gridy = 7;
 		constrains.gridwidth = 5;
 		constrains.gridheight = 1;
-		add(comentario, constrains);
+		panel.add(comentario, constrains);
 
 		JLabel coment1 = new JLabel(" ");
 		constrains.gridx = 0;
 		constrains.gridy = 8;
 		constrains.gridwidth = 6;
 		constrains.gridheight = 1;
-		add(coment1, constrains);
-		
-		siguiente = new JButton("Siguiente");
-		siguiente.setActionCommand("SIGUIENTE");
-		siguiente.addActionListener(this);
-		siguiente.setOpaque(true);
-		siguiente.setBorder(null);
-		siguiente.setBackground(new Color(59, 44, 133));
-		siguiente.setForeground(Color.WHITE);
-		siguiente.setPreferredSize(new Dimension(70, 40));
-		constrains.gridx = 5;
-		constrains.gridy = 9;
-		constrains.gridwidth = 1;
-		constrains.gridheight = 1;
-		constrains.anchor = GridBagConstraints.LAST_LINE_END;
-		add(siguiente, constrains);
-	}
+		panel.add(coment1, constrains);
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("SIGUIENTE"))
-		{
-			if(nombres.getText().isEmpty())
-				JOptionPane.showMessageDialog(this, "Debe poner su nombre");
-			else if(apellidos.getText().isEmpty())
-				JOptionPane.showMessageDialog(this, "Debe poner sus apellidos");
-			else if(username.getText().isEmpty())
-				JOptionPane.showMessageDialog(this, "Debe poner un nombre de usuario");
-			else if(contrasenia.getPassword().length == 0)
-				JOptionPane.showMessageDialog(this, "Debe poner una contraseña");
-			else
-				inicializarMaterias();
-		}
-		else if(e.getActionCommand().equals("REGISTRO"))
-		{
-			
-		}
-
-	}
-
-	public void inicializarMaterias() {
-
-		removeAll();
-		repaint();
-		
 		ArrayList<String> materiasJson = new ArrayList<String>();
 		materiasJson.add("Algorítmica y Programación I");
 		materiasJson.add("Algorítmica y Programación II");
@@ -252,27 +232,26 @@ public class PanelRegistro extends JPanel implements ActionListener{
 
 		materias = new JButton[5][4];
 		int k = 0;
-		GridBagConstraints constrains = new GridBagConstraints();
-		
-		JLabel coment = new JLabel("Materias:");
+
+		JLabel coment18 = new JLabel("Materias:");
 		constrains.gridx = 0;
-		constrains.gridy = 0;
+		constrains.gridy = 9;
 		constrains.gridwidth = 1;
 		constrains.gridheight = 1;
 		constrains.anchor = GridBagConstraints.NORTHWEST;
-		add(coment, constrains);
-		
-		JLabel coment1 = new JLabel(" ");
+		panel.add(coment18, constrains);
+
+		JLabel coment19 = new JLabel(" ");
 		constrains.gridx = 0;
-		constrains.gridy = 1;
+		constrains.gridy = 10;
 		constrains.gridwidth = 6;
 		constrains.gridheight = 1;
-		add(coment1, constrains);
-		
+		panel.add(coment19, constrains);
+
 		constrains.gridwidth = 1;
 		for(int i = 0; i < materias.length; i++)
 		{
-			constrains.gridy = 2+i;
+			constrains.gridy = 11+i;
 			for (int j = 0; j < materias[i].length; j++)
 			{
 				constrains.gridx = 0+j;
@@ -284,73 +263,73 @@ public class PanelRegistro extends JPanel implements ActionListener{
 				materias[i][j].setBorder(null);
 				materias[i][j].setOpaque(true);
 				materias[i][j].setPreferredSize(new Dimension(230, 60));
-				add(materias[i][j], constrains);
+				panel.add(materias[i][j], constrains);
 				k++;
 			}
 		}
-		
+
 		ArrayList<String> habilidadesBlandas = new ArrayList<String>();
-	    habilidadesBlandas.add("Escritura");
-	    habilidadesBlandas.add("Comunicación");
-	    habilidadesBlandas.add("Trabajo en equipo");
-	    habilidadesBlandas.add("Paciencia");
-	    habilidadesBlandas.add("Adaptabilidad");
-	    habilidadesBlandas.add("Resolver problemas");
-	    habilidadesBlandas.add("Creatividad");
-	    habilidadesBlandas.add("Relaciones interpersonales");
-	    
-	    habilidades = new JButton[2][4];
+		habilidadesBlandas.add("Escritura");
+		habilidadesBlandas.add("Comunicación");
+		habilidadesBlandas.add("Trabajo en equipo");
+		habilidadesBlandas.add("Paciencia");
+		habilidadesBlandas.add("Adaptabilidad");
+		habilidadesBlandas.add("Resolver problemas");
+		habilidadesBlandas.add("Creatividad");
+		habilidadesBlandas.add("Relaciones interpersonales");
+
+		habilidades = new JButton[2][4];
 		int l = 0;
-		
+
 		JLabel coment3 = new JLabel(" ");
 		constrains.gridx = 0;
-		constrains.gridy = 7;
+		constrains.gridy = 16;
 		constrains.gridwidth = 6;
 		constrains.gridheight = 1;
-		add(coment3, constrains);
-		
+		panel.add(coment3, constrains);
+
 		JLabel habilities = new JLabel("Habilidades:");
 		constrains.gridx = 0;
-		constrains.gridy = 8;
+		constrains.gridy = 17;
 		constrains.gridwidth = 1;
 		constrains.gridheight = 1;
 		constrains.anchor = GridBagConstraints.NORTHWEST;
-		add(habilities, constrains);
-		
+		panel.add(habilities, constrains);
+
 		JLabel coment2 = new JLabel(" ");
 		constrains.gridx = 0;
-		constrains.gridy = 9;
+		constrains.gridy = 18;
 		constrains.gridwidth = 6;
 		constrains.gridheight = 1;
-		add(coment2, constrains);
-		
+		panel.add(coment2, constrains);
+
 		constrains.gridwidth = 1;
 		for(int i = 0; i < habilidades.length; i++)
 		{
-			constrains.gridy = 10+i;
+			constrains.gridy = 19+i;
 			for (int j = 0; j < habilidades[i].length; j++)
 			{
 				constrains.gridx = 0+j;
-				materias[i][j] = new JButton(habilidadesBlandas.get(l));	
-				materias[i][j].addActionListener(this);
-				materias[i][j].setActionCommand(i+"-"+j+";"+habilidadesBlandas.get(l));
-				materias[i][j].setBackground(new Color(44, 40, 40));
-				materias[i][j].setForeground(Color.WHITE);
-				materias[i][j].setBorder(null);
-				materias[i][j].setOpaque(true);
-				materias[i][j].setPreferredSize(new Dimension(230, 60));
-				add(materias[i][j], constrains);
+				habilidades[i][j] = new JButton(habilidadesBlandas.get(l));	
+				habilidades[i][j].addActionListener(this);
+				habilidades[i][j].setActionCommand(i+"-"+j+","+habilidadesBlandas.get(l));
+				habilidades[i][j].setBackground(new Color(44, 40, 40));
+				habilidades[i][j].setForeground(Color.WHITE);
+				habilidades[i][j].setBorder(null);
+				habilidades[i][j].setOpaque(true);
+				habilidades[i][j].setPreferredSize(new Dimension(230, 60));
+				panel.add(habilidades[i][j], constrains);
 				l++;
 			}
 		}
-		
+
 		JLabel coment4 = new JLabel(" ");
 		constrains.gridx = 0;
-		constrains.gridy = 13;
+		constrains.gridy = 22;
 		constrains.gridwidth = 6;
 		constrains.gridheight = 1;
-		add(coment4, constrains);
-		
+		panel.add(coment4, constrains);
+
 		registrar = new JButton("Registrar");
 		registrar.setActionCommand("REGISTRAR");
 		registrar.addActionListener(this);
@@ -360,13 +339,84 @@ public class PanelRegistro extends JPanel implements ActionListener{
 		registrar.setForeground(Color.WHITE);
 		registrar.setPreferredSize(new Dimension(70, 40));
 		constrains.gridx = 3;
-		constrains.gridy = 14;
+		constrains.gridy = 23;
 		constrains.gridwidth = 1;
 		constrains.gridheight = 1;
 		constrains.anchor = GridBagConstraints.LAST_LINE_END;
-		add(registrar, constrains);
-
+		panel.add(registrar, constrains);
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("REGISTRAR"))
+		{
+			if(nombres.getText().isEmpty())
+				JOptionPane.showMessageDialog(this, "Debe poner su nombre");
+			else if(apellidos.getText().isEmpty())
+				JOptionPane.showMessageDialog(this, "Debe poner sus apellidos");
+			else if(email.getText().isEmpty())
+				JOptionPane.showMessageDialog(this, "Debe poner un correo electrónico");
+			else if(username.getText().isEmpty())
+				JOptionPane.showMessageDialog(this, "Debe poner un nombre de usuario");
+			else if(contrasenia.getPassword().length == 0)
+				JOptionPane.showMessageDialog(this, "Debe poner una contraseña");
+			else if(fechaNacimiento.getDate() == null)
+				JOptionPane.showMessageDialog(this, "Debe poner seleccionar una fecha de nacimiento");
+			else
+			{
+				char[] contra = contrasenia.getPassword();
+				String contrasena = "";
+				for(int k = 0; k < contra.length; k++)
+				{
+					contrasena += contra[k];
+				}
+				interfaz.registrarUsuario(nombres.getText(), apellidos.getText(), email.getText(), username.getText(), universidad.getText(), fechaNacimiento.getDate(), contrasena, comentario.getText(), materiasSeleccionadas, habilidadesSeleccionadas);
+			}
+		}
+		else if(e.getActionCommand().contains(";"))
+		{
+			String comando = e.getActionCommand();
+			String materia = comando.split(";")[1];
+			String coordenadas = comando.split(";")[0];
+			int i = Integer.parseInt(coordenadas.split("-")[0]);
+			int j = Integer.parseInt(coordenadas.split("-")[1]);
+
+			if(materias[i][j].getBackground().equals(new Color(44, 40, 40)))
+			{
+				materiasSeleccionadas.add(new Materia(materia));
+				materias[i][j].setBackground(new Color(59, 44, 133));
+				System.out.println(materia);
+			}
+
+			else if(materias[i][j].getBackground().equals(new Color(59, 44, 133)))
+			{
+				materiasSeleccionadas.remove(new Materia(materia));
+				materias[i][j].setBackground(new Color(44, 40, 40));
+			}
+		}
+
+		else if(e.getActionCommand().contains(","))
+		{
+			String comando = e.getActionCommand();
+			String habilidad = comando.split(",")[1];
+			String coordenadas = comando.split(",")[0];
+			int i = Integer.parseInt(coordenadas.split("-")[0]);
+			int j = Integer.parseInt(coordenadas.split("-")[1]);
+
+			if(habilidades[i][j].getBackground().equals(new Color(44, 40, 40)))
+			{
+				habilidadesSeleccionadas.add(new HabilidadBlanda(habilidad));
+				habilidades[i][j].setBackground(new Color(59, 44, 133));
+				System.out.println(habilidad);
+			}
+
+			else if(habilidades[i][j].getBackground().equals(new Color(59, 44, 133)))
+			{
+				habilidadesSeleccionadas.remove(new HabilidadBlanda(habilidad));
+				habilidades[i][j].setBackground(new Color(44, 40, 40));
+			}
+		}
+
+	}
 
 }

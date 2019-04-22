@@ -189,6 +189,13 @@ public class OtiumApp
 
 	}
 	
+	public void crearUsuario(String pNombre, String pApellido, String pEmail, String pUserName, String pUniversidad, Date pFechaNac, String pContra, String pComentario, ArrayList<Materia> materias, ArrayList<HabilidadBlanda> habilidades )
+	{
+		Formulario formulario = new Formulario(pComentario);
+		formulario.setHabilidades(habilidades);
+		formulario.setMaterias(materias);
+		currentUser = new Usuario(pUserName, pNombre, pApellido, pEmail, pUniversidad, pFechaNac, pContra, formulario);
+	}
 	/**
 	 * Agrega un usuario a la lista de usuarios.
 	 * Cada vez que se agrega un usuario se debe crear el archivo de nuevo
@@ -570,6 +577,7 @@ public class OtiumApp
 		cargarHabilidades();
 		cargarMaterias();
 		cargarOfertas();
+		cargarUsuarios();
 //		System.out.println("funciono!!!");
 //		System.out.println(allOfertas.size());
 		/*
