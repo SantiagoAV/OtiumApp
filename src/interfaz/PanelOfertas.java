@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import interfazVisitante.InterfazVisitante;
 import logic.Oferta;
 
 public class PanelOfertas extends JScrollPane

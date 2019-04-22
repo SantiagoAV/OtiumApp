@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import interfazVisitante.InterfazVisitante;
 import logic.Oferta;
 
 public class PanelOferta extends JPanel implements ActionListener

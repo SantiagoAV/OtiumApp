@@ -2,9 +2,6 @@ package interfaz;
 
 import javax.swing.*;
 
-import interfazUsuario.InterfazUsuario;
-import interfazVisitante.InterfazVisitante;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
