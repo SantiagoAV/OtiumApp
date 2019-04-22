@@ -25,6 +25,8 @@ public class Interfaz extends JFrame
 
 	private int pagActual;
 
+	private boolean agregado;
+	
 	// -----------------------------------------------------------------
 	// Atributos de la interfaz
 	// -----------------------------------------------------------------
@@ -91,12 +93,12 @@ public class Interfaz extends JFrame
 		historial.add(home);
 		add(home, BorderLayout.CENTER);
 
-		//        inicializarPanelOfertasGenerales(); 
-		//        ofertasGenerales = new JScrollPane(panelOfertasGenerales, 
-		//        			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  
-		//        			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		//        add(ofertasGenerales, BorderLayout.CENTER);
-		//        
+		inicializarPanelOfertasGenerales(); 
+		ofertasGenerales = new JScrollPane(panelOfertasGenerales, 
+		        			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  
+		        			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		agregado = false;
+		        
 	}
 	// -----------------------------------------------------------------
 	// Métodos
@@ -135,7 +137,10 @@ public class Interfaz extends JFrame
 	public void showHome() 
 	{
 		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
-		historial.get(pagActual).setVisible(false);
+		if(historial.get(pagActual).equals(panelOfertasGenerales))
+			ofertasGenerales.setVisible(false);
+		else
+			historial.get(pagActual).setVisible(false);
 		historial.add(home);
 		pagActual++;
 
@@ -149,20 +154,38 @@ public class Interfaz extends JFrame
 	{
 		if(pagActual < historial.size()-1)
 		{
+			if(historial.get(pagActual).equals(panelOfertasGenerales))
+				ofertasGenerales.setVisible(false);
+			else
+				historial.get(pagActual).setVisible(false);
 			
+			pagActual ++;
+			
+			if(historial.get(pagActual).equals(panelOfertasGenerales))
+				ofertasGenerales.setVisible(true);
+			else
+				historial.get(pagActual).setVisible(true);
 		}
 		
 		repaint();
 		revalidate();
 	}
 
-	public void previousPage() 
+ 	public void previousPage() 
 	{
 		if(pagActual > 0)
 		{
+			if(historial.get(pagActual).equals(panelOfertasGenerales))
+				ofertasGenerales.setVisible(false);
+			else
+				historial.get(pagActual).setVisible(false);
+			
 			pagActual--;
-			JPanel panel = historial.get(pagActual);
-			add(panel, BorderLayout.CENTER);
+			
+			if(historial.get(pagActual).equals(panelOfertasGenerales))
+				ofertasGenerales.setVisible(true);
+			else
+				historial.get(pagActual).setVisible(true);
 		}
 		
 		repaint();
@@ -172,16 +195,36 @@ public class Interfaz extends JFrame
 	public void showAllOfertas() 
 	{
 		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
+		historial.get(pagActual).setVisible(false);
+		historial.add(panelOfertasGenerales);
+		pagActual++;
 		
+		if(!agregado)
+		{
+			add(ofertasGenerales, BorderLayout.CENTER);
+			agregado =true;
+		}
+		
+		
+		ofertasGenerales.setVisible(true);
+		repaint();
+		revalidate();	
 	}
 	
 	public void showDetail(Oferta of) 
 	{
 		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
-		historial.get(pagActual).setVisible(false);
+		
+		if(historial.get(pagActual).equals(panelOfertasGenerales))
+			ofertasGenerales.setVisible(false);
+		else
+			historial.get(pagActual).setVisible(false);
+		
 		PanelOfertaDetail detail = new PanelOfertaDetail(of);
-		historial.add(detail);
+		historial.add(detail);		
 		pagActual ++;
+		detail.setVisible(true);
+		add(detail, BorderLayout.CENTER);
 		
 		revalidate();
 		repaint();		
@@ -190,7 +233,12 @@ public class Interfaz extends JFrame
 	public void showRegistrar()
 	{
 		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
-		historial.get(pagActual).setVisible(false);
+
+		if(historial.get(pagActual).equals(panelOfertasGenerales))
+			ofertasGenerales.setVisible(false);
+		else
+			historial.get(pagActual).setVisible(false);
+
 		registro = new PanelRegistro(this);
 		historial.add(registro);
 		pagActual ++;
@@ -204,7 +252,12 @@ public class Interfaz extends JFrame
 	public void showIniciarSesion() 
 	{
 		historial = new ArrayList<JPanel>( historial.subList(0, pagActual+1));
-		historial.get(pagActual).setVisible(false);
+
+		if(historial.get(pagActual).equals(panelOfertasGenerales))
+			ofertasGenerales.setVisible(false);
+		else
+			historial.get(pagActual).setVisible(false);
+		
 		iniciarSesion = new PanelIniciarSesion(this);
 		historial.add(iniciarSesion);
 		pagActual ++;

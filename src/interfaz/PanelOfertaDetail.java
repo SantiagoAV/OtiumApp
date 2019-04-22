@@ -51,7 +51,9 @@ public class PanelOfertaDetail extends JPanel
 	public PanelOfertaDetail(Oferta of)
 	{
 		//Panel con la información de la empresa.
+		setBackground(Color.WHITE);
 		JPanel east = new JPanel();
+		east.setBackground(Color.WHITE);
 		east.setLayout(new GridBagLayout());
 		east.setBorder(BorderFactory.createLineBorder(Color.black));
 		
@@ -87,6 +89,7 @@ public class PanelOfertaDetail extends JPanel
 				
 		//Panel con la información de la oferta
 		JPanel west = new JPanel();
+		west.setBackground(Color.WHITE);
 		west.setLayout(new GridBagLayout());
 		
 		// Let's write how this shit works.
