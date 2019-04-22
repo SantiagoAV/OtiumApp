@@ -9,7 +9,7 @@ import logic.OtiumApp;
 
 /**
  * 
- * @author linkhl09 and mj.ocampov
+ * @author linkhl09 and mjocampov
  */
 public class Interfaz extends JFrame
 {
