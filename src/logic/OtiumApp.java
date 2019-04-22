@@ -1,9 +1,11 @@
 package logic;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -195,6 +197,7 @@ public class OtiumApp
 		formulario.setHabilidades(habilidades);
 		formulario.setMaterias(materias);
 		currentUser = new Usuario(pUserName, pNombre, pApellido, pEmail, pUniversidad, pFechaNac, pContra, formulario);
+		usuarios.add(currentUser);
 	}
 	/**
 	 * Agrega un usuario a la lista de usuarios.
@@ -467,21 +470,38 @@ public class OtiumApp
 	{
 		currentUser.getFormulario().getMaterias().add(materia);
 	}
+	
+	/**
+	 * Metodo para obtener el usuario por username
+	 */
+	public Usuario getUsuario(String pUsername)
+	{
+		Usuario buscado = null;
+		
+		for (Usuario usuario : usuarios) {
+			
+			if(usuario.getUsername().equals(pUsername))
+				buscado = usuario;
+				
+		}
+		
+		return buscado;
+	}
 
 	/**
 	 * Metodo que retorna una lista con ofertas que hacen match.
 	 * El metodo calcula el porcentaje de materias y habilidades minimas 
 	 * para hacer "match" con una oferta laboral y  si se cumple el porcentaje, se agrega a la lista 
 	 */
-	public ArrayList<Oferta> calcularMatch()
+	public ArrayList<Oferta> calcularMatch(String username)
 	{
 		ArrayList<Oferta> matchOfertas = new ArrayList<Oferta>();
 		int numSeleccionadas = 0;
 		
 		int totalOferta = 0;
 
-		ArrayList<HabilidadBlanda> habilidadesUser = currentUser.getFormulario().getHabilidades();
-		ArrayList<Materia> materiasUser = currentUser.getFormulario().getMaterias();
+		ArrayList<HabilidadBlanda> habilidadesUser = getUsuario(username).getFormulario().getHabilidades();
+		ArrayList<Materia> materiasUser = getUsuario(username).getFormulario().getMaterias();
 
 		for (Oferta oferta : allOfertas) {
 			totalOferta = oferta.getMaterias().size() + oferta.getHabilidades().size();
@@ -490,7 +510,14 @@ public class OtiumApp
 			for (Materia materia : materiasUser) {
 				
 				for (Materia materiaOfer : oferta.getMaterias()) {
-
+					System.out.println(materia.getNombre());
+					System.out.println(oferta.getMaterias().size());
+					System.out.println(oferta.getTitulo());
+					if(materiaOfer == null)
+					{
+						System.out.println("loopp");
+					}
+					System.out.println(materiaOfer.getNombre());
 					if(materia.getNombre().equals(materiaOfer.getNombre()))
 					{
 						numSeleccionadas++;
@@ -578,9 +605,10 @@ public class OtiumApp
 		cargarMaterias();
 		cargarOfertas();
 		cargarUsuarios();
+		System.out.println("no user: " + usuarios.size());
 //		System.out.println("funciono!!!");
-//		System.out.println(allOfertas.size());
-		/*
+	System.out.println(allOfertas.size());
+		
 		for (Oferta act : allOfertas) {
 
 			System.out.println("titulo: "+ act.getTitulo());
@@ -601,7 +629,7 @@ public class OtiumApp
 
 				System.out.println("Habilidad: "+ habilidad.getNombre());
 			}
-		}*/
+		}
 		
 //			Formulario newForm = new Formulario("nada jeje");
 //			

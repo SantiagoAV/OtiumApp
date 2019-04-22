@@ -119,14 +119,14 @@ public class Interfaz extends JFrame
 		}
 	}
 
-	private void inicializarPanelOfertasUsuario()
+	private void inicializarPanelOfertasUsuario(String usuario)
 	{
 		panelOfertasMatch = new JPanel();
 		panelOfertasMatch.setLayout(new GridBagLayout());
 		int y = 0;
 		GridBagConstraints gbc = new GridBagConstraints(0,y,1,1,0,0,GridBagConstraints.LINE_START, 1, new Insets( 5, 5, 5, 5 ),0,0);
 
-		for(Oferta of : logic.calcularMatch())
+		for(Oferta of : logic.calcularMatch(usuario))
 		{
 			panelOfertasMatch.add(new PanelOferta(of, this), gbc);
 			y++;
@@ -268,9 +268,9 @@ public class Interfaz extends JFrame
 		revalidate();
 	}
 	
-	public void showOfertasUsuario()
+	public void showOfertasUsuario(String pUserName)
 	{
-		inicializarPanelOfertasUsuario(); 
+		inicializarPanelOfertasUsuario(pUserName); 
 		ofertasGenerales = new JScrollPane(panelOfertasMatch, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -284,7 +284,7 @@ public class Interfaz extends JFrame
 		{
 			remove(iniciarSesion);
 
-			showOfertasUsuario();
+			showOfertasUsuario(username);
 
 			repaint();
 			revalidate();
@@ -299,10 +299,10 @@ public class Interfaz extends JFrame
 		logic.crearUsuario(pNombre, pApellido, pEmail, pUserName, pUniversidad, pFechaNac, pContra, pComentario, materias, habilidades);
 
 		remove(registro);
-		
-		showOfertasUsuario();
-		
+
+		showOfertasUsuario(pUserName);		
 		navBar.actualizar();
+
 		repaint();
 		revalidate();
 	}
