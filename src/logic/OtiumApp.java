@@ -2,7 +2,12 @@ package logic;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 
@@ -26,42 +31,57 @@ public class OtiumApp
 	 */
 	private static final String DIR_MATERIAS_JSON = "./data/materias.json";
 
+	/**
+	 * Constante con la direccion del JSON de Usuarios.
+	 */
+	private static final String DIR_USUARIOS_JSON = "./data/usuarios.json";
 
 
 	/**
 	 * Usuario actual
 	 */
-	private static Usuario currentUser;
+	private Usuario currentUser;
 
 	/**
 	 * Lista de todas las ofertas
 	 */
-	private static ArrayList<Oferta> allOfertas;
+	private ArrayList<Oferta> allOfertas;
 
 	
 	/**
 	 * Lista de todas las materias
 	 */
-	private static ArrayList<Materia> materias;
+	private ArrayList<Materia> materias;
 
 
 	/**
 	 * Lista de todas las habilidades
 	 */
-	private static ArrayList<HabilidadBlanda> habilidades;
+	private ArrayList<HabilidadBlanda> habilidades;
+	
+	/**
+	 * Lista de todos los usuarios
+	 */
+	private ArrayList<Usuario> usuarios;
 
 	public OtiumApp()
 	{
 		estadoInicialPruebas();
 	}
 	
+	public ArrayList<Oferta> darOfertas()
+	{
+		return allOfertas;
+	}
+	
 	/**
 	 * 
 	 */
-	public static void cargarOfertas()
+	public  void cargarOfertas()
 	{
 		JSONParser parser = new JSONParser();
 		allOfertas = new ArrayList<Oferta>();
+
 		try {
 			JSONObject objOfrt = (JSONObject) parser.parse(new FileReader(new File(DIR_OFERTAS_JSON)));
 
@@ -168,11 +188,202 @@ public class OtiumApp
 		}
 
 	}
+	
+	/**
+	 * Agrega un usuario a la lista de usuarios.
+	 * Cada vez que se agrega un usuario se debe crear el archivo de nuevo
+	 */
+	public  void persistirUsuario(Usuario user)
+	{
+		usuarios.add(user);
+		
+		crearArchivoUsers();
+	}
+	
+	
+	/**
+	 * Metodo para verificar los datos de inicio de sesion de un usuario
+	 * Retorna true si la info es valida; False si no es valida
+	 */
+	public boolean iniciarSesion(String pUsuario, String pContrasenia)
+	{
+		boolean esValida = false;
+		
+		
+		Usuario current = null;
+		for (int i = 0; i < usuarios.size(); i++) {
+			
+			current = usuarios.get(i);
+			if(current.getUsername().equals(pUsuario) && current.getContrasenia().equals(pContrasenia))
+			{
+				esValida = true;
+			}
+			
+			
+		}
+		
+		return esValida;
+	}
+	
+	/**
+	 * Crea el archivo json con todos los usuarios
+	 */
+	@SuppressWarnings("unchecked")
+	public void crearArchivoUsers()
+	{
+		//Crea array de json objects(usuarios)
+		JSONArray userList = new JSONArray();
+		//Por cada usuario un objeto JSON
+		for (Usuario usuario : usuarios) 
+		{
+			
+			JSONObject userDetails = new JSONObject();
+			
+			userDetails.put("Username", usuario.getUsername());
+			
+			userDetails.put("Nombres", usuario.getNombres());
+			
+			userDetails.put("Apellidos", usuario.getApellidos());
+			
+			userDetails.put("Email", usuario.getEmail());
+			
+			userDetails.put("Universidad", usuario.getUniversidad());
+			
+			userDetails.put("Fecha Nacimiento",usuario.getFechaNacimiento().toString());
+			
+			userDetails.put("Contrasenia", usuario.getContrasenia());
+			
+			//Crea un objeto para la info del formulario
+			JSONObject formDetails = new JSONObject();
+			formDetails.put("Comentario", usuario.getFormulario().getComentario());
+			
+			//Array con las habilidades seleccionadas en el formulario
+			JSONArray userHab = new JSONArray();
+			
+			for (HabilidadBlanda habilidad : usuario.getFormulario().getHabilidades()) {
+				userHab.add(habilidad.getNombre());
+			}
+			//Array con las materias seleccionadas en el formulario
+			JSONArray userMat = new JSONArray();
+			for (Materia materia : usuario.getFormulario().getMaterias()) {
+				userMat.add(materia.getNombre());
+			}
+			formDetails.put("Materias", userMat);
+			formDetails.put("Habilidades", userHab);
+			userDetails.put("Formulario", formDetails);
+			
+			userList.add(userDetails);
+		}
+		//Escribe el archivo con la lista de objetos
+        try (FileWriter file = new FileWriter(DIR_USUARIOS_JSON)) {
+        	 
+            file.write(userList.toJSONString());
+            file.flush();
+ 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	/**
+	 * Metodo para cargar los usuarios
+	 */
+	public void cargarUsuarios()
+	{
+		JSONParser parser = new JSONParser();
+		usuarios = new ArrayList<Usuario>();
+		
+		try {
+			
+			JSONArray arrayUsuarios = (JSONArray) parser.parse(new FileReader(new File(DIR_USUARIOS_JSON)));
+			Usuario user = null;
+			ArrayList<HabilidadBlanda> habUser = new ArrayList<>();
+			ArrayList<Materia> matUser = new ArrayList<>();
+			Formulario formulario = null;
+			for(int i = 0; arrayUsuarios != null && i < arrayUsuarios.size(); i++)
+			{
+				JSONObject obj = (JSONObject) arrayUsuarios.get(i);
+				
+				String username = "";
+				if(obj.get("Username")!= null)
+					username = obj.get("Username").toString();
+				
+				String nombres = "";
+				if(obj.get("Nombres") != null)
+					nombres = obj.get("Nombres").toString();
+				
+				String apellidos = "";
+				if(obj.get("Apellidos") != null)
+					apellidos = obj.get("Apellidos").toString();
+				
+				String email = "";
+				if(obj.get("Email") != null)
+					email = obj.get("Email").toString();
+				
+				String universidad = "";
+				if(obj.get("Universidad") != null)
+					universidad  = obj.get("Universidad").toString();
+				
+				Date fechaNacimiento = null;
+				if(obj.get("Fecha Nacimiento") != null)
+				{
+					String fecha = obj.get("Fecha Nacimiento").toString();
+					
+					SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+					fechaNacimiento = formatter.parse(fecha);
+				}
+				
+				String contrasenia =  "";
+				if(obj.get("Contrasenia") != null)
+					contrasenia = obj.get("Contrasenia").toString();
+				
+				JSONObject form = null;
+				String comentario = "";
+				if(obj.get("Formulario") != null)
+				{
+					form = (JSONObject) obj.get("Formulario");
+					
+					JSONArray habilidades = (JSONArray) form.get("Habilidades");
+					HabilidadBlanda hab = null;
+					for (Object object : habilidades) {
+						
+						hab = darHabilidad(object.toString());
+						habUser.add(hab);
+					}
+					
+					JSONArray materias = (JSONArray) form.get("Materias");
+					Materia mat = null;
+					for (Object object : materias) {
+						
+						mat = darMateria(object.toString());
+						matUser.add(mat);
+					}
+					
+
+					if(form.get("Comentario") != null)
+						comentario = form.get("Comentario").toString();
+					
+				}
+				
+				formulario = new Formulario(comentario);
+				
+				user = new Usuario(username, nombres, apellidos, email, universidad, fechaNacimiento, contrasenia, formulario);
+				user.getFormulario().setHabilidades(habUser);
+				user.getFormulario().setMaterias(matUser);
+				usuarios.add(user);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	/**
 	 * 
 	 */
-	public static void cargarHabilidades()
+	public void cargarHabilidades()
 	{
 		JSONParser parser = new JSONParser();
 		habilidades = new ArrayList<HabilidadBlanda>();
@@ -204,7 +415,7 @@ public class OtiumApp
 	/**
 	 * 
 	 */
-	public static void cargarMaterias()
+	public void cargarMaterias()
 	{
 		JSONParser parser = new JSONParser();
 		materias = new ArrayList<Materia>();
@@ -309,7 +520,7 @@ public class OtiumApp
 	/**
 	 * Metodo que encuentra una materia con el nombre dado por parametro
 	 */
-	public static Materia darMateria(String pNombre)
+	public Materia darMateria(String pNombre)
 	{
 		Materia buscada = null;
 		String nombre = "";
@@ -331,7 +542,7 @@ public class OtiumApp
 	/**
 	 * Metodo que encuentra una habilidad con el nombre dado por parametro
 	 */
-	public static HabilidadBlanda darHabilidad(String pNombre)
+	public HabilidadBlanda darHabilidad(String pNombre)
 	{
 		HabilidadBlanda buscada = null;
 		String nombre = "";
@@ -359,8 +570,8 @@ public class OtiumApp
 		cargarHabilidades();
 		cargarMaterias();
 		cargarOfertas();
-		System.out.println("funciono!!!");
-		System.out.println(allOfertas.size());
+//		System.out.println("funciono!!!");
+//		System.out.println(allOfertas.size());
 		/*
 		for (Oferta act : allOfertas) {
 
@@ -384,15 +595,17 @@ public class OtiumApp
 			}
 		}*/
 		
-			Formulario newForm = new Formulario("nada jeje");
+//			Formulario newForm = new Formulario("nada jeje");
+//			
+//			currentUser = new Usuario("d", "a", "m", "n", "b", new Date(150), "y", newForm);
+//			persistirUsuario(currentUser);
+//			currentUser.getFormulario().getMaterias().add(darMateria("Matemática Estructural"));
+//			currentUser.getFormulario().getMaterias().add(darMateria("Infraestructura Computacional"));
+//			currentUser.getFormulario().getMaterias().add(darMateria("Sistemas Transaccionales"));
+//			currentUser.getFormulario().getHabilidades().add(darHabilidad("Escritura"));
+//			currentUser.getFormulario().getHabilidades().add(darHabilidad("Trabajo en equipo"));
+//			currentUser.getFormulario().getHabilidades().add(darHabilidad("Comunicación"));
 			
-			currentUser = new Usuario("d", "a", "m", "n", "b", new Date(150), "y", newForm);
-			currentUser.getFormulario().getMaterias().add(darMateria("Matemática Estructural"));
-			currentUser.getFormulario().getMaterias().add(darMateria("Infraestructura Computacional"));
-			currentUser.getFormulario().getMaterias().add(darMateria("Sistemas Transaccionales"));
-			currentUser.getFormulario().getHabilidades().add(darHabilidad("Escritura"));
-			currentUser.getFormulario().getHabilidades().add(darHabilidad("Trabajo en equipo"));
-			currentUser.getFormulario().getHabilidades().add(darHabilidad("Comunicación"));
 		/**	ArrayList<Oferta> oferSuggest = calcularMatch();
 			System.out.println("-----------------------------------SOY UN SEPARADOR-------------------------------------");
 			System.out.println(oferSuggest.size());
@@ -409,5 +622,6 @@ public class OtiumApp
 			}*/
 		
 	}
+	
 
 }

@@ -43,15 +43,15 @@ public class InterfazVisitante extends JFrame
 		// Construye la forma
 		setSize(new Dimension(1000,1000));
         getContentPane( ).setLayout( new BorderLayout( ) );
-        setResizable( false );
+        setResizable( true );
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         setTitle("Visitante");
         
         navBar = new NavBar(this);
         add(navBar, BorderLayout.NORTH);
         add(panelHomePage, BorderLayout.CENTER);
-//        PanelOfertaDetail ofDetailPrueba = new PanelOfertaDetail(logic.calcularMatch().get(0));
-//        add(ofDetailPrueba, BorderLayout.CENTER);
+        PanelOfertaDetail ofDetailPrueba = new PanelOfertaDetail(logic.darOfertas().get(0));
+        add(ofDetailPrueba, BorderLayout.CENTER);
 	}
 
 	// -----------------------------------------------------------------
