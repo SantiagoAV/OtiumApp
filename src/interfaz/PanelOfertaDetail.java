@@ -1,6 +1,8 @@
 package interfaz;
 
 import java.awt.*;
+import java.text.DecimalFormat;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
@@ -123,7 +125,8 @@ public class PanelOfertaDetail extends JPanel
 		
 		gbc = new GridBagConstraints(0,3,1,1,0,0,GridBagConstraints.PAGE_START, GridBagConstraints.NONE, new Insets( 5, 5, 5, 5 ),0,0);
 		west.add(new JLabel("Salario:"), gbc);
-		salario = new JLabel(""+ of.getSalario());
+		DecimalFormat format = new DecimalFormat("$###,###.##");
+		salario = new JLabel(format.format(of.getSalario()));
 		gbc = new GridBagConstraints(1,3,1,1,0,0,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets( 5, 5, 5, 5 ),0,0);
 		west.add(salario, gbc);
 		

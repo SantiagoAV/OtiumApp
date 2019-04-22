@@ -19,11 +19,17 @@ public class Interfaz extends JFrame
 
 	private OtiumApp logic;
 	
+	private int pagActual;
+	
 	// -----------------------------------------------------------------
     // Atributos de la interfaz
     // -----------------------------------------------------------------
 	
-	private PanelOfertas ofertasGenerales;
+	private JScrollPane ofertasGenerales;
+	
+	private JPanel panelOfertasGenerales;
+	
+	private JPanel panelOfertasMatch;
 	
 	private NavBar navBar;
 	
@@ -55,9 +61,9 @@ public class Interfaz extends JFrame
 		
 		// Inicializo paneles principales.
 		logic = new OtiumApp();
-		ofertasGenerales = new PanelOfertas(logic.darOfertas(), this);
 		home = new PanelHomePage();
 		historial = new ArrayList<JPanel>();
+		pagActual = 0;
 		
 		
 		// Construye la forma.
@@ -71,14 +77,36 @@ public class Interfaz extends JFrame
 		navBar = new NavBar(this);
         add(navBar, BorderLayout.NORTH);
         
-        //Iniciar con la homepage
-        add(home, BorderLayout.CENTER);
+        //Iniciar con la homepage y agregarla a la lista de historial.
+        historial.add(home);
+        //add(home, BorderLayout.CENTER);
 		
+        inicializarPanelOfertasGenerales(); 
+        ofertasGenerales = new JScrollPane(panelOfertasGenerales, 
+        			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  
+        			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        add(ofertasGenerales, BorderLayout.CENTER);
+        
 	}
 	// -----------------------------------------------------------------
     // Métodos
     // -----------------------------------------------------------------
 
+	private void inicializarPanelOfertasGenerales()
+	{
+		panelOfertasGenerales = new JPanel();
+		panelOfertasGenerales.setLayout(new GridBagLayout());
+		int y = 0;
+		GridBagConstraints gbc = new GridBagConstraints(0,y,1,1,0,0,GridBagConstraints.LINE_START, 1, new Insets( 5, 5, 5, 5 ),0,0);
+		
+		for(Oferta of : logic.darOfertas())
+		{
+			panelOfertasGenerales.add(new PanelOferta(of, this), gbc);
+			y++;
+			gbc = new GridBagConstraints(0,y,1,1,0,0,GridBagConstraints.LINE_START, 1, new Insets( 5, 5, 5, 5 ),0,0);
+		}
+	}
+	
 	/**
 	 * Método más importante y no se como hacerlo :D
 	 */
@@ -100,24 +128,34 @@ public class Interfaz extends JFrame
 
 	public void home() 
 	{
-		//Redirigir a la home page.
+		historial = (ArrayList<JPanel>) historial.subList(0, pagActual);
+		historial.add(home);
+		pagActual++;
 		
+		//TODO Repaint de la homepage, no recuerdo como hacerlo.
 		
 	}
 
 	public void nextPage() 
 	{
-		// TODO Hacer el next page.		
+		
+		// TODO Hacer el next page.
 	}
 
 	public void previousPage() 
 	{
-		// TODO Hacer el previous page.		
+		
+		
+		//TODO Repaint, no recuerdo como hacerlo.
 	}
 
 	public void mostrarDetail(Oferta of) 
 	{
-				
+		historial = (ArrayList<JPanel>) historial.subList(0, pagActual);
+		PanelOfertaDetail detail = new PanelOfertaDetail(of);
+		historial.add(detail);
+		pagActual = historial.indexOf(detail);
+		//TODO Repaint, no recuerdo como hacerlo.
 	}
 	
 	// -----------------------------------------------------------------
